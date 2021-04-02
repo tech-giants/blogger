@@ -1,0 +1,158 @@
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" ></script>   
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/jquery.slimscroll.min.js"></script>
+    <title>BLOGING</title>
+
+    <link rel="stylesheet" href="/index.css">
+   
+</head>
+<body >
+
+  <%- include('base.ejs'); -%>
+
+      <center>
+      <!-- Posts work backwards that means that the posts are reversed -->
+      <div class="banner_images">
+        <img class="first" src="../Untitled-1.png"/>
+        <br>
+        <img class="second" src="../Group 1.png"/>
+      </div>
+      <!-- <div class="bs-example"> 
+      <div class="shadow p-3 md-3 mb-5 bg-white rounded">Regular shadow</div>
+      </div> -->
+     
+      
+    
+    <% posts.slice().reverse().forEach((post) => { %>
+     
+        
+        <!-- <%= post.id %> -->
+
+        <div class="bs-example" >
+            <div class="shadow p-3 md-3 mb-5 bg-white rounded">
+              <div class="card-body bg-white blogs">
+                <div class="col-lg-12 col-md-10 col-sm-8 col-xs-6">
+                  
+         <h4 > <%= Truncate(post.title, 50)%></h4>
+                <%=post.content%><img class="mr-3 rounded-circle blog_img" src="<%=post.image%>" alt="" height="100" width="100" >
+              
+                <!-- <img class="mr-3 rounded-circle blog_img" src="<%=post.image%>" alt="" height="100" width="100" > -->
+                
+              <p class="date"> <%= post.post_date %></p>
+              
+              
+              
+              
+              <!-- <br> -->
+              <!-- <hr s> -->
+
+
+
+                <!-- <p class="card-text"><%= Truncate(post.content, 200) %></p> -->
+                <hr class="hr">
+                <a  href="/post/<%= post.id %>" id="read_btn<%= post.id %>" class="btn  readBtn"><img src="../file.png" class="read_img"/></a>
+                
+                </div>
+                
+      </div>
+ 
+                <script>
+
+
+
+                  $('#read_btn<%= post.id %>').on('click', function() {
+                    $.ajax({
+                          type: 'POST',
+                          url: '/views',
+                           data: { id: "<%= post.id %>"}
+                        
+                        }).done(function(data) {
+                          //document.getElementById("like_").innerHTML=parseInt(document.getElementById("like_").innerHTML)+1
+                         // document.getElementById("likebutton").style.display="none";
+                         debugger;
+                                });
+                  }) 
+                   
+                
+                    
+                    
+                    
+                    
+                    </script>
+                
+                <% if(verified) { %>
+
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Actions
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="/edit/<%= post.id %>">Edit</a>
+                      <a class="dropdown-item" href="/delete/<%= post.id %>">Delete</a>
+                    </div>
+                  </div>
+                <% } %>
+
+
+              </div>
+            </div>
+        </div>
+
+    <% }); %>
+
+    </center>
+    <nav>
+      <ul class="pagination justify-content-center">
+
+          <li class="page-item"><a onclick="pagination_prev()"  class="page-link">Previous</a></li>
+          <li class="page-item"><a onclick="pagination_next()" class="page-link">Next</a></li>
+      </ul>
+  </nav>
+  <footer class="foot">
+    <div class="search"></div>
+    <p>Author: Hege Refsnes<br>
+    <a href="mailto:hege@example.com">hege@example.com</a></p>
+  </footer>
+  
+  <script>
+    
+    $( document ).ready(function() {
+      if(typeof(Storage) !== "undefined") {
+      if (localStorage.page) {
+        console.log("page is defined");
+      } else {
+        localStorage.setItem("page",'0')
+      }
+  }
+});
+
+    function pagination_prev(){
+      if(localStorage.page!='0'){
+        localStorage.page=parseInt(localStorage.page)- 1
+        window.location.href="/?page="+localStorage.page;
+
+      }
+
+    }
+    function pagination_next(){
+      console.log(parseInt(localStorage.page))
+      localStorage.page=parseInt(localStorage.page)+ 1
+        window.location.href="/?page="+localStorage.page;
+    }
+  </script>
+    <br>
+    
+
+
+    
+
+</body>
+
+</html>

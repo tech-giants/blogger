@@ -1,0 +1,129 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/read.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script type="text/javascript" src="https://js.pusher.com/3.2/pusher.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0" nonce="7ra2I2aC"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+      
+      .heading {
+    color: #666666;
+    text-align: center;
+}
+body {
+  font-family: Arial, sans-serif;
+  color: #404040;
+  background-color: #eee;
+}
+.container {
+  width: 520px;
+  margin-top: 20px;
+}
+.button-group {
+  margin-bottom: 20px;
+}
+.counter {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+.posts {
+  clear: both;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  text-align: left;
+}
+.posts li {
+  background-color: #fff;
+  border: 1.5px solid #d8d8d8;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  min-height: 42px;
+  box-shadow:8px 8px 5px #888888;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+    </style>
+    <title><%= post.title %> | blog</title>
+</head>
+
+<body>
+
+    
+  <%- include('base.ejs'); -%>
+
+
+      <br>
+
+      <center>
+        <h1><%= post.title %></h1> <br>
+        <hr style="margin: 1% 30%">
+        <div style="width: 40%; word-wrap: break-word;"><%- post.content %></div>
+
+        <br>
+        <span>views: <%- post.views %></span>
+       
+        <span>like: <span id="like_"><%- post.likes %></span></span>
+        <br>
+        <% if(verified) { %>
+        <button id ="likebutton">like </button>
+        <% } else { %>
+          <p>login to like this blog</p>
+          <% } %>
+        <br>
+        <hr style="margin: 1% 30%">
+        <br>
+        
+        <div class="container">
+          <form>
+            <div class="form-group">
+              <textarea class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
+            </div>
+          </form>
+          <div class="button-group pull-right">
+            <p class="counter">250</p>
+            <a href="#" class="btn btn-primary">Post</a>
+          </div>
+          <ul class="posts">
+          </ul>
+        </div>
+       
+      </center>
+      
+      <script>
+        $('#likebutton').on('click', function() {
+    $.ajax({
+      type: 'POST',
+      url: '/like',
+      data: { id: "<%- post.id %>" }
+    
+    }).done(function(data) {
+      document.getElementById("like_").innerHTML=parseInt(document.getElementById("like_").innerHTML)+1
+      document.getElementById("likebutton").style.display="none";
+            });
+});
+
+
+
+      </script>
+
+</body>
