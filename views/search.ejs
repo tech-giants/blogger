@@ -5,52 +5,215 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <title>BLOGING</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" ></script>   
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/index.css">
+    <script type="text/javascript" src="libs/jquery.slimscroll.min.js"></script>
+    <title>BLOGING</title>
+    <link rel="stylesheet" href="/index.css">
+   
 </head>
-<body style="background-image: url(../public/Saldiri.png);">
-
+<body >
   <%- include('base.ejs'); -%>
-
       <center>
-      <!-- Posts work backwards that means that the posts are reversed -->
-    <% posts.slice().reverse().forEach((post) => { %>
         
+     
+      <div style="display: none;" class="banner_images">
+        <img class="first" src="../Untitled-1.png"/>
+        <br>
+        <img class="second" src="../Group 1.png"/>
+        <br>
+      </div>
+      <div  class="form" style="width: 77%;">
+        <form action="/search" id="search_frm" method="GET" >
+          <input name ="search" type="text" placeholder="      Search.." />
+            </form> 
+        </div>
+       
         
+       
+     
+        <div class="wrap" >
+    <% posts.length > 0 && posts.slice().reverse().forEach((post) => { %>
+     
         
-        <!-- <%= post.id %> -->
-
-        <div class="simple-space col-sm-6">
-            <div class="card">
-              <div class="card-body">
-              <img src="<%=post.image%>" alt="" height="100" width="100" > <br> <h4><span class="badge badge-dark"><%= post.id %></span> <%= Truncate(post.title, 50)%></h4>
-                <p class="date"> <%= post.post_date %></p>
-                <!-- <p class="card-text"><%= Truncate(post.content, 200) %></p> -->
-                <a href="/post/<%= post.id %>" class="btn btn-primary">Read</a>
-                
-                
-                <% if(verified) { %>
-
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Actions
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="/edit/<%= post.id %>">Edit</a>
-                      <a class="dropdown-item" href="/delete/<%= post.id %>">Delete</a>
-                    </div>
-                  </div>
-                <% } %>
-
-
+       
+        <div class="card " >
+          <% if(verified) { %>
+              <div class="col-12 editdellete">
+               
+               
+                  
+               
+                  <a  href="/delete/<%= post.id %>" id="delete_btn<%= post.id %>" class="btn  deleteBtn"><img src="./delete.png" class="delete_img"/></a>
+                  <a  href="/edit/<%= post.id %>" id="edit_btn<%= post.id %>" class="btn  editBtn"><img src="./edit.png" class="edit_img"/></a>
+             
+            
               </div>
+              <% } %>
+              
+          <div class="row">
+            <div class="col-10"><div class="card-body">
+              <h5 title="my name is khan " class="card-title"><%= Truncate(post.title, 100)%></h5><p class="card-text"> <small class="date"><span>Written by : <%= post.username %> </span> </small></p>
+              <div class="content content_width"><%- post.content%></div>
+              
+            </div>
+            
+          </div>
+           
+          
+            <div class="col-2">
+              <img src="<%=post.image%>" class="mr-3 rounded-circle" alt="Sample Image">
+              
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-12 border-bottom"></div>
+          </div>
+          <div class="row cardrow">
+            <div class="col-3 count">
+              <img src="../like.png" class="like"/>
+              <span class="like1"><%= post.likes %></span>
+              <img src="../chat-comment-oval-speech-bubble-with-text-lines.png" class="comments"/>
+              <span class="comments1">
+              23
+              </span>
+              <img src="../visibility.png" class="views"/>
+              <span class="views1">
+                <%= post.views %>
+              </span>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-5">
+              
+              <a  href="/post/<%= post.id %>" id="read_btn<%= post.id %>" class="btn  readBtn"><img src="../file.png" class="read_img"/></a>
+</div>
+            </div>
+            
+          </div>
+         
+          </div>
+     
+      <div class="row">
+        
+        
+      </div>
+      
+        
+       <br>
+       
+       
+                  
+        
+              
+              
+              
+              
+        
+ 
+                <script>
+                  $('#read_btn<%= post.id %>').on('click', function() {
+                    $.ajax({
+                          type: 'POST',
+                          url: '/views',
+                           data: { id: "<%= post.id %>"}
+                        
+                        }).done(function(data) {
+                          //document.getElementById("like_").innerHTML=parseInt(document.getElementById("like_").innerHTML)+1
+                         // document.getElementById("likebutton").style.display="none";
+                         
+                                });
+                  }) 
+                   
+                
+                    
+                    
+                    
+                    
+                    </script>
+                
+               
+              
             </div>
         </div>
-
     <% }); %>
+      </div>
 
     </center>
+    <nav>
+      <ul class="pagination justify-content-center" data-pagenum=0>
+          <li class="page-item"><a onclick="pagination_prev(this)"  class="page-link">Previous</a></li>
+          <% if(posts.length > 0) { %>
+          <li class="page-item"><a onclick="pagination_next(this)" class="page-link">Next</a></li>
+          <% } else { %>
+            <li class="page-item" disabled><a class="page-link">Next</a></li>
+          <% } %>
+          
+      </ul>
+  </nav>
+  
+  
+  <script>
+    function search(){
+      localStorage.setItem("page",0);
+    }
+    $( document ).ready(function() {
+      
+      if(typeof(Storage) !== "undefined") {
+      if (localStorage.page) {
+        console.log("page is defined");
+        console.log(localStorage.getItem("page"));
+      } else {
+        localStorage.setItem("page",'0')
+      }
+  }
+});
+    function pagination_prev(obj){
+      
+      var currentPage = localStorage.getItem("page") == undefined ? 0 : parseInt(localStorage.getItem("page"));
+      if(currentPage>1)
+      {
+        var nextPageProps = getPagingRoute('p',currentPage);
+      var currentPageNextVal = currentPage - 1;
+      localStorage.setItem("page",currentPageNextVal);
+      window.location.href = "/search?skip=" + nextPageProps.skip +"&search="+ "<%= search_c %>";
+      }
+      
+      }
+    
+    function pagination_next(obj){
+      
+      var currentPage = localStorage.getItem("page") == undefined ? 0 : parseInt(localStorage.getItem("page"));
+     
+        var nextPageProps = getPagingRoute('n',currentPage);
+      var currentPageNextVal = currentPage + 1;
+      localStorage.setItem("page",currentPageNextVal);
+      window.location.href = "/search?skip=" + nextPageProps.skip +"&search="+ "<%= search_c %>";
+     
+      
+    }
+    function getPagingRoute(mode,currentPage){
+      
+     
+      
+      var pageSize = 5;
+      var skip = 0;
+        if(mode=='n'){
+          currentPage ++;
+        }
+        else{
+            currentPage--;
+        }
+        skip = (currentPage * pageSize) - pageSize;
+        
+        
+          return {"limit":5, "skip":skip};
+    }
+  </script>
     <br>
+    
+    
 </body>
 </html>

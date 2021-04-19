@@ -1,4 +1,5 @@
     <!-- Header -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <nav class="navbar navbar-expand-lg navbar-white bg-white">
         <a class="navbar-brand" href="/"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,33 +13,44 @@
                 <img src="../Saldiri.png" alt="Saldiri" class="logo-img">
 
             </a>
-              <a class="nav-link logo-tittle" style="color:#3b5999"href="/"> SALDIRI <span class="sr-only">(current)</span></a>
+              <a class="nav-link logo-tittle" style="color:#3b5999"href="/"> SALDIRI <span class="sr-only"></span></a>
             </li>
           </ul>
-          <ul class="nav justify-content-end">
+          <ul class="nav navv justify-content-end">
             <li class="nav-item active">
-              <a class="nav-link" style="color:#3b5999" href="/login"> Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="https://www.saldri.com"  > Home <span class="sr-only">(current)</span></a>
             </li>
-          </ul>
-          <ul class="nav justify-content-end">
+          
             <li class="nav-item active">
-              <a class="nav-link" style="color:#3b5999" href="/signup">About  <span class="sr-only">(current)</span></a>
+              <a class="nav-link" style="color:black; display: inline;font-weight: 600;"  href="http://127.0.0.1:5500/index.html?mode=about">About  <span class="sr-only">(current)</span></a>
             </li>
-          </ul>
-          <ul class="nav justify-content-end">
+         
             <li class="nav-item active">
-              <a class="nav-link" style="color:#3b5999" href="/signup"> Services <span class="sr-only">(current)</span></a>
+              <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="http://127.0.0.1:5500/index.html?mode=services"> Services <span class="sr-only">(current)</span></a>
             </li>
-          </ul><ul class="nav justify-content-end">
+         
             <li class="nav-item active">
-              <a class="nav-link" style="color:#3b5999" href="/signup"> Technologies <span class="sr-only">(current)</span></a>
+              <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="http://127.0.0.1:5500/index.html?mode=technologies"> Technologies <span class="sr-only">(current)</span></a>
             </li>
-          </ul>
-        </ul><ul class="nav justify-content-end">
+         
           <li class="nav-item active">
-            <a class="nav-link" style="color:#3b5999" href="/signup"> Contact <span class="sr-only">(current)</span></a>
+            <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="https://www.saldri.com/final-contact-us.html"> Contact us <span class="sr-only">(current)</span></a>
           </li>
-        </ul>
+        
+        
+        
+       
+
+        <!-- <div id="mySidenav" class="sidenav">
+          <a href="final-contact-us.html" id="contact-us"><i class="fas fa-phone-alt"></i>Contact Us</a>
+          <a href="career.html" id="career"><i class="fas fa-briefcase"></i>Career</a>
+          
+
+      </div> -->
+
+
+
+
           <!-- <form action="/search" method="POST">
           <input name ="search" type="text" placeholder="Search..">
           <input type="submit" value="search" placeholder="Search..">
@@ -46,32 +58,42 @@
           <% if(verified) { %>
             <!-- If the user logged in -->
 
-            <ul class="nav justify-content-end">
+            
               <li class="nav-item active">
-                <a class="nav-link" style="color: #3b5999" href="/new"> Create <span class="sr-only">(current)</span></a>
+                <a class="nav-link" style="color: black; display: inline;font-weight: 600;" href="/new"> Create <span class="sr-only">(current)</span></a>
               </li>
-            </ul>
+           
 
-            <ul class="nav justify-content-end">
+           
               <li class="nav-item active">
-                <a class="nav-link" style="color:#3b5999" href="/auth/logout"> Logout <span class="sr-only">(current)</span></a>
+                <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="/auth/logout"> Logout <span class="sr-only">(current)</span></a>
               </li>
             </ul>
 
           <% } else { %>
             <!-- else -->
-            <ul class="nav justify-content-end">
+            
               <li class="nav-item active">
-                <a class="nav-link" style="color:#3b5999" href="/login"> Login <span class="sr-only">(current)</span></a>
+                <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="/login"> Login <span class="sr-only">(current)</span></a>
+              </li>
+           
+              <li class="nav-item active">
+                <a class="nav-link" style="color:black; display: inline;font-weight: 600;" href="/signup"> Sign Up <span class="sr-only">(current)</span></a>
               </li>
             </ul>
-            <ul class="nav justify-content-end">
-              <li class="nav-item active">
-                <a class="nav-link" style="color:#3b5999" href="/signup"> signup <span class="sr-only">(current)</span></a>
-              </li>
-            </ul>
+
+
+
 
           <% } %>
-
+          
+          
         </div>
       </nav>
+      <div id="mySidenav" class="sidenav">
+        <a href="https://www.saldri.com/final-contact-us.html" id="contact-us"><i class="fas fa-phone-alt fa-2x fa-fw"></i>   Contact Us</a>
+        <a href="https://www.saldri.com/career.html" id="career"><i class="fas fa-briefcase fa-2x fa-fw"></i>   Career</a>
+        <a href="/" id="blog"><i class="far fa-blog fa-2x fa-fw"></i>   Blog</a>
+      </div>
+     
+     

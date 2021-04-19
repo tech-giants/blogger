@@ -1,6 +1,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/read.css">
+    <link rel="stylesheet" href="../read.css">
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../new.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script type="text/javascript" src="https://js.pusher.com/3.2/pusher.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" ></script>
@@ -8,122 +11,240 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0" nonce="7ra2I2aC"></script>
+    <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0" nonce="7ra2I2aC"></script> -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <style>
-      
-      .heading {
-    color: #666666;
-    text-align: center;
-}
-body {
-  font-family: Arial, sans-serif;
-  color: #404040;
-  background-color: #eee;
-}
-.container {
-  width: 520px;
-  margin-top: 20px;
-}
-.button-group {
-  margin-bottom: 20px;
-}
-.counter {
-  display: inline;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 10px;
-}
-.posts {
-  clear: both;
-  list-style: none;
-  padding-left: 0;
-  width: 100%;
-  text-align: left;
-}
-.posts li {
-  background-color: #fff;
-  border: 1.5px solid #d8d8d8;
-  border-radius: 10px;
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  word-wrap: break-word;
-  min-height: 42px;
-  box-shadow:8px 8px 5px #888888;
-}
-.btn-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
-
-    </style>
-    <title><%= post.title %> | blog</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  -->
+    <title>blog</title>
 </head>
 
 <body>
 
     
   <%- include('base.ejs'); -%>
+  <center>
+   <!-- <h1><%= post.title %></h1> -->
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-9"><p class="tittle"><strong><%= post.title %></strong></p></div>
+    <!-- <div class="col-1"></div> -->
+    
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-5 icons">
+   <img src="../like.png" class="like"/>
+      <span id="like_"><%= post.likes %></span>
+     <img src="../chat-comment-oval-speech-bubble-with-text-lines.png" class="comments"/>
+     <span id="comments__">
+      <%= comments_count%>
+     </span>
+     <img src="../visibility.png" class="views"/>
+     <span>
+       <%= post.views %>
+     </span></div>
+    <div class="col-4"><small class="date1"><span>Written by: <%= post.username %> , &nbsp;</span> <%= dateformat__(post.post_date,"d/m/yyyy") %></small></div>
+     <div class="col-1"></div>
+  </div>
+  <div class="row">
+    <div class="col-10 center-img">
+      <img src="/<%=post.image%>" class="img-fluid" alt="Responsive image">
+      
+    </div>
+  </div>
+  <br>
+  <br>
+</center>
+  <center>
+  <div class="row col-8">
+
+    <%- post.content%>
+
+  </div>
+</center>
 
 
-      <br>
+
+
+
 
       <center>
-        <h1><%= post.title %></h1> <br>
-        <hr style="margin: 1% 30%">
-        <div style="width: 40%; word-wrap: break-word;"><%- post.content %></div>
-
-        <br>
-        <span>views: <%- post.views %></span>
        
-        <span>like: <span id="like_"><%- post.likes %></span></span>
-        <br>
-        <% if(verified) { %>
-        <button id ="likebutton">like </button>
-        <% } else { %>
-          <p>login to like this blog</p>
-          <% } %>
-        <br>
-        <hr style="margin: 1% 30%">
-        <br>
+         <span>views: <%- post.views %></span>
+        <span>like: <span id="like_counter"><%- post.likes %></span></span>
+        <span>comments:<span id="comments_count"><%= comments_count%></span></span>
         
-        <div class="container">
-          <form>
-            <div class="form-group">
-              <textarea class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
-            </div>
-          </form>
-          <div class="button-group pull-right">
-            <p class="counter">250</p>
-            <a href="#" class="btn btn-primary">Post</a>
+        <hr class="col-8" style="background-color: #3b5999;">
+        <% if(verified) { %>
+          <div class="row">
+            <div class="col-8"></div>
+            
+            <div class="col-4">
+              <img id="likeimg" src="../like.png"   class="post_like likes"  alt="like image">
+              <img id="likedimg" src="../likeb.png"   class="post_liked likes"  alt="liked image"> <span id="btnlike" class="likebutton" style="outline: none;" ></button> like </button></div>
+           
           </div>
-          <ul class="posts">
-          </ul>
+          <div class="row">
+           
+            <div class="col-3">
+            <p class="button1" >post comment</p>
+          </div>
+          <div class="col8"></div>
         </div>
+          <hr class="col-8" style="background-color: #3b5999;">
+
+
+
+
+        
+        
+        
+          <div class = "col-8 container">
+            
+            <br>
+              <div class="row">
+               <div class="col-12"><textarea  rows="7"  id="comment_box" class="col-12 commentbody" ></textarea></div>
+                
+            </div>
+          <div class="row " >
+            <div class="col-11"></div>
+            <div class=" col-1 sendbutton">   
+             <button class="sndbutton"  style="outline: none;"  onclick="post_comment()"><img src="../send (1).png"  class="post12" alt=""></button>
+  
+            
+          </div>
+        </div>
+                
+              
+              <!-- <div class="row " >
+                <div class="col-11"></div>
+                <div class="col-1 sendbutton">   
+                  <button class="button"  style="outline: none;"  onclick="post_comment()"><img src="../send (1).png"  class="post12" alt=""></button></div>
+               
+                
+              </div> -->
+              <!-- </div> -->
+            </div>
+           
+              <br>
+              <br>
+          <div id="comment_area">
+            <% comments.length > 0 && comments.slice().reverse().forEach((comment__) => { %>
+           <div class="card col-8">
+             <span id="comment_text"><%= comment__.comments %></span>
+             <hr>
+             <p class="card-text"> <small class="date"><span>Written by : <%= comment__.username %> ,  &nbsp;</span> <%= dateformat__(comment__.comment_date,"dd/mm/yyyy") %></small></p>
+             
+           </div>
+           <% }); %>
+          </div>
+          <% } else { %>
+            <span class="bottom">login to like and comment on this blog</span>
+            <br>
+            
+            <% } %>
+            
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+              <a href="/">
+                  <img src="../Group 2.png" class="back" alt=" ">
+              </a>
+          </div>
+         <br>
+         <br>
        
       </center>
       
       <script>
-        $('#likebutton').on('click', function() {
+        $('.likes').on('click', function() {
+         
+          type='add'
+          cur_color =  $('#btnlike').text().trim();
+          if(cur_color=='liked'){
+            type='negative'
+          }
+          
     $.ajax({
       type: 'POST',
       url: '/like',
-      data: { id: "<%- post.id %>" }
+      data: { id: "<%- post.id %>" ,type_:type}
     
     }).done(function(data) {
-      document.getElementById("like_").innerHTML=parseInt(document.getElementById("like_").innerHTML)+1
-      document.getElementById("likebutton").style.display="none";
+      
+      
+     $('#like_counter').text(data.likesUpdated[0].likes);
+     $('#like_').text(data.likesUpdated[0].likes);
+      if(cur_color=='liked'){
+        
+        $('#btnlike').text("like");
+            $('#likeimg').show();
+            $('#likedimg').hide(); //white img src
+          }
+        else{
+           $('#btnlike').text("liked");
+         $('#likeimg').hide(); //blue img src
+         $('#likedimg').show();
+        }
             });
 });
+function post_comment(){
+  var comment = document.getElementById('comment_box').value;
+
+  if (comment != "") {
+    
+    $.ajax({
+      type: 'POST',
+      url: '/comment',
+      data: { id: "<%- post.id %>",comment_cur:comment,user:"<%- accountid_ %>"}
+   
+    
+    }).done(function(data) {
+      debugger;
+      $('#comments_count').text(data.commentsupdated[0].commentscount);
+     $('#comments__').text(data.commentsupdated[0].commentscount);
+      
+     var html = document.createElement('div');
+      var para= document.createElement('p');
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+
+today = dd + '/' + mm + '/' + yyyy;
+      $(para).html(comment);
+     
+      $(html).addClass('card col-8').append(para);
+      $(html).append("<hr>")
+      $(html).append('<p class="card-text"> <small class="date">' +today+'</small></p>')
+      $(html).prependTo('#comment_area');
+      $('#comment_box').val('');
+            });
 
 
 
+
+
+
+
+      
+      
+    }
+
+}
+
+var main = function() {
+//selects all the form elements on the page
+  $('form').submit(function(event) {
+    var $input = $(event.target).find('input');
+    var comment = $input.val();
+    
+    
+    // stop browser from refreshing the page
+    return false;
+    
+  });
+}
+
+$(document).ready(main);
       </script>
 
 </body>

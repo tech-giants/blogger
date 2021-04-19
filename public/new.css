@@ -1,4 +1,16 @@
 /* Later add css */
+.logo-img{
+    height: 4vw;
+    margin-top: 36%;
+}
+.logo-tittle{
+    font-size: 4vw;
+}
+
+
+
+
+
 .form-fix {
     padding: 0 10%;
 }
@@ -11,5 +23,37 @@
     margin-top: 36%;
 }
 .logo-tittle{
-    font-size: 4vw;
+    font-size: 3.2vw;
 }
+#mySidenav a {
+    margin-top: 100px;
+    position: fixed;
+    right: -65px;
+    transition: 0.7s;
+    padding: 9px;
+    width: 96px;
+    text-decoration: none;
+    font-size: 9px;
+    color: white;
+    border-radius: 7px 0px 0px 7px;
+  }
+  
+  
+  #mySidenav a:hover {
+    right: 0;
+  }
+  
+  #contact-us {
+    top: 16px;
+    background-color: #4CAF50;
+  }
+  
+  #career {
+    top: 52px;
+    background-color: #2196F3;
+  }
+  
+  #blog {
+    top: 88px;
+    background-color: #2f2626;
+  }

@@ -1,3 +1,69 @@
-div.panel-heading{
-    background-color: #3b5999;
+.panel{
+
+    margin-left: 56%;
+    border-radius: 25px;
+    background: #3b5999;
+    width: 85%;
+    height: 60%;
 }
+ 
+
+ .form-group{
+     color: whitesmoke;
+     font-size: 1vw;
+ }
+
+.btn-info{
+    background-color: #3b5999;
+    color: white;
+
+}
+.form-control{
+    color:  #3b5999;
+}
+/* .form-horizontal  {
+    /* border-radius: 25px;
+    background: #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px; */
+    /* border-style: solid;
+  border-color:#3b5999; */
+
+.panel-heading{
+     font-size: 1.5vw;
+    /* font-size: 2vw;
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px; */
+    color: whitesmoke;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+.btn{
+    color: #3b5999;
+    background-color: whitesmoke;
+    font-size: 1vw;
+    width: 43%;
+    font-weight: bold;
+}
+/* @media screen and (min-width: 140px) {
+    .pannel{
+        
+    border-radius: 25px;
+    background: #3b5999;
+    width: 85%;
+    height: 50%;
+    }
+  }
+/* @media (min-width: 300px) {
+    .pannel{
+        margin-left: 50%;
+    border-radius: 25px;
+    background: #3b5999;
+    width: 85%;
+    height: 50%;
+    }
+} */ 

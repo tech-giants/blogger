@@ -10,8 +10,11 @@ exports.login = (req, res) => {
         [username, password],
         (error, results) => {
             if (results.length > 0) {
+                // console.log(results.id);
+                console.log(results[0].id);
                 req.session.loggedin = true;
 				req.session.username = username;
+                req.session.accountid = results[0].id
 				res.redirect('/');
             } else {
                 res.send('Incorrect password or username');
@@ -26,22 +29,34 @@ exports.logout = (req, res) => {
     res.redirect('/');
 }
 exports.signup = function(req, res){
+   
     message = '';
     if(req.method == "POST"){
-       var post  = req.body;
-       var name= post.username;
-       var pass= post.password;
-       var email= post.email;
+        var sql="select * from accounts where username = ?"
+        connection.query(sql,[req.body.username],function(err,result){
+            if(result.length>=1){
+                res.render('signup.ejs',{error:"Username already exists",verified:""});
+            }
+            else{
+                
+                var post  = req.body;
+                var name= post.username;
+                var pass= post.password;
+                var email= post.email;
+           
+                var sql = "INSERT INTO `accounts`(`username`,`password`,`email`) VALUES ('" + name + "','" + pass + "','" + email + "')";
+           
+                var query = connection.query(sql, function(err, result) {
+           
+                   message = "Succesfully! Your account has been created.";
+                   res.redirect('/login');
+                });
+            }
+        });
+            
   
-       var sql = "INSERT INTO `accounts`(`username`,`password`,`email`) VALUES ('" + name + "','" + pass + "','" + email + "')";
-  
-       var query = connection.query(sql, function(err, result) {
-  
-          message = "Succesfully! Your account has been created.";
-          res.render('signup.ejs',{message: message});
-       });
   
     } else {
-       res.render('signup.ejs');
+        res.render('signup.ejs',{error:"",verified:""});
     }
  };
