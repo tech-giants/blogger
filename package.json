@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node ./node_modules/nodemon/bin/nodemon.js app.js"
+    "start": "node app.js"
   },
-  "author": "JustPowerful",
+  "author": "obaid",
   "license": "ISC",
   "dependencies": {
     "ckeditor": "^4.12.1",

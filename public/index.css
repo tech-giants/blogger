@@ -6,7 +6,11 @@
   margin-right: 10%;
   font-size: 1.3vw;
 } 
-  
+.nav-link{
+  color:black;
+   display: inline;
+   font-weight: 600;
+}  
 
 
 

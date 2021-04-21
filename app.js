@@ -32,3 +32,5 @@ app.get('/signup', authController.signup);
 app.post('/signup', authController.signup);
 app.use('/profile', profileRouter) // profile router
 app.listen(process.env.PORT || 50000);
+// app.listen(1337, '127.0.0.1');
+// console.log('Server running at http://127.0.0.1:1337/');

@@ -9,12 +9,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    
+    <script src="../js/read.js"></script>
   
-    <div id="fb-root"></div>
-    <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0" nonce="7ra2I2aC"></script> -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  -->
+  
     <title>blog</title>
 </head>
 
@@ -23,11 +23,11 @@
     
   <%- include('base.ejs'); -%>
   <center>
-   <!-- <h1><%= post.title %></h1> -->
+  
   <div class="row">
     <div class="col-2"></div>
     <div class="col-9"><p class="tittle"><strong><%= post.title %></strong></p></div>
-    <!-- <div class="col-1"></div> -->
+    
     
   </div>
   <div class="row">
@@ -62,19 +62,11 @@
 
   </div>
 </center>
-
-
-
-
-
-
-      <center>
-       
-         <span>views: <%- post.views %></span>
+   <center>
+                <span>views: <%- post.views %></span>
         <span>like: <span id="like_counter"><%- post.likes %></span></span>
         <span>comments:<span id="comments_count"><%= comments_count%></span></span>
-        
-        <hr class="col-8" style="background-color: #3b5999;">
+         <hr class="col-8" style="background-color: #3b5999;">
         <% if(verified) { %>
           <div class="row">
             <div class="col-8"></div>
@@ -92,14 +84,7 @@
           <div class="col8"></div>
         </div>
           <hr class="col-8" style="background-color: #3b5999;">
-
-
-
-
-        
-        
-        
-          <div class = "col-8 container">
+              <div class = "col-8 container">
             
             <br>
               <div class="row">
@@ -110,21 +95,9 @@
             <div class="col-11"></div>
             <div class=" col-1 sendbutton">   
              <button class="sndbutton"  style="outline: none;"  onclick="post_comment()"><img src="../send (1).png"  class="post12" alt=""></button>
-  
-            
-          </div>
+     </div>
         </div>
-                
-              
-              <!-- <div class="row " >
-                <div class="col-11"></div>
-                <div class="col-1 sendbutton">   
-                  <button class="button"  style="outline: none;"  onclick="post_comment()"><img src="../send (1).png"  class="post12" alt=""></button></div>
-               
-                
-              </div> -->
-              <!-- </div> -->
-            </div>
+                 </div>
            
               <br>
               <br>
@@ -154,97 +127,6 @@
        
       </center>
       
-      <script>
-        $('.likes').on('click', function() {
-         
-          type='add'
-          cur_color =  $('#btnlike').text().trim();
-          if(cur_color=='liked'){
-            type='negative'
-          }
-          
-    $.ajax({
-      type: 'POST',
-      url: '/like',
-      data: { id: "<%- post.id %>" ,type_:type}
     
-    }).done(function(data) {
-      
-      
-     $('#like_counter').text(data.likesUpdated[0].likes);
-     $('#like_').text(data.likesUpdated[0].likes);
-      if(cur_color=='liked'){
-        
-        $('#btnlike').text("like");
-            $('#likeimg').show();
-            $('#likedimg').hide(); //white img src
-          }
-        else{
-           $('#btnlike').text("liked");
-         $('#likeimg').hide(); //blue img src
-         $('#likedimg').show();
-        }
-            });
-});
-function post_comment(){
-  var comment = document.getElementById('comment_box').value;
-
-  if (comment != "") {
-    
-    $.ajax({
-      type: 'POST',
-      url: '/comment',
-      data: { id: "<%- post.id %>",comment_cur:comment,user:"<%- accountid_ %>"}
-   
-    
-    }).done(function(data) {
-      debugger;
-      $('#comments_count').text(data.commentsupdated[0].commentscount);
-     $('#comments__').text(data.commentsupdated[0].commentscount);
-      
-     var html = document.createElement('div');
-      var para= document.createElement('p');
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      var yyyy = today.getFullYear();
-
-today = dd + '/' + mm + '/' + yyyy;
-      $(para).html(comment);
-     
-      $(html).addClass('card col-8').append(para);
-      $(html).append("<hr>")
-      $(html).append('<p class="card-text"> <small class="date">' +today+'</small></p>')
-      $(html).prependTo('#comment_area');
-      $('#comment_box').val('');
-            });
-
-
-
-
-
-
-
-      
-      
-    }
-
-}
-
-var main = function() {
-//selects all the form elements on the page
-  $('form').submit(function(event) {
-    var $input = $(event.target).find('input');
-    var comment = $input.val();
-    
-    
-    // stop browser from refreshing the page
-    return false;
-    
-  });
-}
-
-$(document).ready(main);
-      </script>
 
 </body>
