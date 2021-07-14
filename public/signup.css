@@ -1,16 +1,21 @@
 .panel{
 
-    margin-left: 56%;
-    border-radius: 25px;
+   
+    border-radius: 14px;
     background: #3b5999;
-    width: 85%;
-    height: 60%;
+    width: 500px;
+    height: 500px;
 }
- 
+
+ .sigUp_center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
 
  .form-group{
      color: whitesmoke;
-     font-size: 1vw;
+     font-size: 1rem;
  }
 
 .btn-info{
@@ -31,13 +36,14 @@
   border-color:#3b5999; */
 
 .panel-heading{
-     font-size: 1.5vw;
+     font-size: 1.5rem;
     /* font-size: 2vw;
     border-radius: 25px;
     background: #73AD21;
     padding: 20px;
     width: 200px;
     height: 150px; */
+    text-align: center;
     color: whitesmoke;
     font-weight: bold;
     margin-bottom: 6px;
@@ -45,7 +51,7 @@
 .btn{
     color: #3b5999;
     background-color: whitesmoke;
-    font-size: 1vw;
+    font-size: 1rem;
     width: 43%;
     font-weight: bold;
 }

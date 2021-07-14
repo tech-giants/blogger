@@ -7,32 +7,63 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <link rel="stylesheet" href="/login.css">
+        <link rel="icon" href="Saldiri.png" type="image/gif" sizes="16x16">
         <link rel="stylesheet" href="/index.css">
+        <link rel="stylesheet" href="./signup.css">
+        
     </head>
 
     <body style="background-image: url(../public/Saldiri.png);">
 
 
       <%- include('base.ejs'); -%>
-        <center>
-            <form action="/auth/login" method="POST">
-              <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+       
+          <div class="container sigUp_center " id="mainform">
+            <div id="signupbox" style=" margin-top:50px ;" class="mainbox col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-2">
+                                                           
+                    <div class="left_panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title" style="padding: 25px;">Login</div>
+                            <div style=" float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/"></a></div>
+                        </div> 
+                        <div class=" row panel-body" >
+            <form class="form-horizontal  col-12" role="form" action="/auth/login" method="POST">
+              <div id="signupbox" class="mainbox col-md-12 col-md-offset-3 col-sm-8 col-sm-offset-2">
                                                            
                 
-                <div class="form-group form-fix">
+                <div class="form-group">
                   <label for="exampleInputEmail1">Username</label>
-                  <input type="text1" class="form-control" id="exampleInputEmail1" name="username" required>
+               
+                  <input type="text1" class="form-control" id="exampleInputEmail1" name="username" required placeholder="Username">
                 </div>
-                <div class="form-group form-fix">
+                <div class="form-group">
                   <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                  
+                  <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
                 </div>
-                </div>
+                <center>
+                <div class="form-group">
+                  
+
+                  
+                  <!-- Button -->                                       
+                  <div class="col-md-offset-3 col-md-12 signUp_btn">
+                    <button type="submit" class="btn submit_button">Submit</button>
+                      
+                  </div>
               </div>
+              </center>
+
+                </div>
+                        </div>
                 
-                <button type="submit" class="btn btn-dark submit_button">&nbsp Submit</button>
+              </div>
+              </div>
+              </div>
+
+
               </form>
-        </center>
+       
     </body>
 
     
