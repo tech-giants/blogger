@@ -5,9 +5,18 @@
 .logo-tittle{
     font-size: 3.2vw;
 }
+
+.left_panel{
+  border-radius: 14px;
+    background: #3b5999;
+    width: 500px;
+    height: 400px;
+}
 .submit_button{
     background-color: #3b5999;
 }
+
+
 #mySidenav a {
     margin-top: 100px;
     position: fixed;

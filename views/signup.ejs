@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" ></script>   
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    
+    <link rel="icon" href="Saldiri.png" type="image/gif" sizes="16x16">
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     -->
     <link rel="stylesheet" href="./signup.css">
@@ -17,20 +17,29 @@
     <!-- <link rel="stylesheet" href="/index.css"> -->
     
     
-   
+    <style>
+        .signUp_btn{
+            margin-left: 27%;
+        }
+    </style>
+    
 </head>
+
+
 <body>
+
+
     <%- include('base.ejs'); -%>
     
-    <div class="container " id="mainform">
-            <div id="signupbox" style=" margin-top:50px ;" class="  mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="container sigUp_center " id="mainform">
+            <div id="signupbox" style=" margin-top:50px ;" class="  mainbox col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-2">
                                                            
-                    <div class="panel panel-info   col-10">
-                        <div class="panel-heading  ">
-                            <div class="panel-title">&nbsp; Sign Up</div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title" style="padding: 25px;">&nbsp; Sign Up</div>
                             <div style=" float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/"></a></div>
                         </div> 
-                        <div class="panel-body" >
+                        <div class=" row panel-body" >
                             <form class="form-horizontal  col-12" role="form" method="post" action="/signup" onSubmit="return checkblank(this);">
                               
                                                                                                 
@@ -45,7 +54,7 @@
                                 
                                      <div class="form-group">
                                     <label for="email" class="col-md-3 control-label">Email</label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <input type="email" class="form-control" name="email" placeholder="abc@example.com" required>
                                     </div>
                                 </div>
@@ -54,21 +63,21 @@
 
                                 <div class="form-group">
                                     <label for="user_name" class="col-md-4 control-label">UserName</label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <input type="text1" class="form-control" name="username" placeholder="UserName" required>
                                     </div>
                                 </div>
                                     
                                 <div class="form-group">
                                     <label for="password" class="col-md-3 control-label">Password</label>
-                                    <div class="col-md-9">
+                                    <div class="col-md-12">
                                         <input type="password" class="form-control" name="password" placeholder="Password" required>
                                     </div>
                                 </div>
  
                                 <div class="form-group">
                                     <!-- Button -->                                       
-                                    <div class="col-md-offset-3 col-md-9">
+                                    <div class="col-md-offset-3 col-md-12 signUp_btn">
                                         <button id="btn-signup" type="submit" class="btn "><i class="icon-hand-right"></i>  Sign Up</button>
                                         
                                     </div>
