@@ -46,6 +46,10 @@
   top: 88px;
   background-color: #2f2626;
 }
+#quote {
+  top: 124px;
+  background-color:#800000;
+}
 .avatar {
   /* vertical-align: middle;
   width: 50%;

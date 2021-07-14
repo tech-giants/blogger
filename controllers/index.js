@@ -159,13 +159,15 @@ exports.new_post = (req, res) => {
 
 // viewing the post
 exports.post = (req, res) => {
-   
+   console.log("iddd ",req.params.id)
     connection.query(
         'SELECT * FROM posts WHERE id = ?',
         [req.params.id],
         (error, results) => {
-
+            
             connection.query('select c.Commentid As commentid, c.comments as comments ,c.comment_date as comment_date,a.username as username FROM `comments` as c JOIN accounts as a ON c.accountid = a.id where c.postid = ?',[req.params.id],(error,results_comment) => {
+                console.log("comments ",error)
+                console.log("resultl from post ",results)
                 res.render('read.ejs', {post: results[0],comments:results_comment, verified: req.session.loggedin,accountid_:req.session.accountid,dateformat__:dateFormat,comments_count:results_comment.length});
 
             });
@@ -196,11 +198,13 @@ exports.like = (req, res) => {
 
 }
 exports.comment = (req, res) => {
-    console.log(req.session.userid)
+    console.log("insertion of comment ",req.session.userid)
     connection.query(
-        'insert into comments(comments,postid,accountid,comment_date) VALUES(?,?,?,NOW())',
+        'insert into comments(comments,postid,accountid) VALUES(?,?,?)',
         [req.body.comment_cur,req.body.id, req.session.accountid],
         (error, results) => {
+            console.log("error in comment i ",error)
+            console.log("result in comment i ",results)
         }
         
     )

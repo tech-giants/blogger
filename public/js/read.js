@@ -29,7 +29,7 @@ if(cur_color=='liked'){
   }
       });
 });
-function post_comment(){
+function post_comment(post,accountid){
 var comment = document.getElementById('comment_box').value;
 
 if (comment != "") {
@@ -37,7 +37,7 @@ if (comment != "") {
 $.ajax({
 type: 'POST',
 url: '/comment',
-data: { id: "<%- post.id %>",comment_cur:comment,user:"<%- accountid_ %>"}
+data: { id: post,comment_cur:comment,user:accountid}
 
 
 }).done(function(data) {
