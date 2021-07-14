@@ -6,7 +6,11 @@ module.exports.image={
           cb(null, 'public/images/')
         },
         filename: function (req, file, cb) {
-            cb(null, file.originalname)
+
+            var file_name_array = file.originalname.split(".");
+            var file_extension = file_name_array[file_name_array.length - 1];
+            var file_name = file.originalname.split(file_extension)[0];
+            cb(null, file_name+"_"+Date.now()+"."+file_extension)
         }
       })
       return storage;

@@ -6,6 +6,7 @@ var dateFormat = require('dateformat');
 var multer  = require('multer');
 var fs = require('fs');
 const imageToBase64 = require('image-to-base64');
+var uuidV4 = require('uuid');
 // var popup = require('popups');
 var imageMiddleware= require('../middlewares/store-image');
 // index page
@@ -23,7 +24,7 @@ exports.index = (req, res) => {
         skip=req.query.skip
     }
   
-   query=`SELECT posts.*, count(comments.postid) as number_of_comments from posts left join comments on (posts.id = comments.postid) group by posts.id LIMIT ` + limit + ` OFFSET ` + skip;
+   query=`SELECT accounts.username , posts.*, count(comments.postid) as number_of_comments from posts INNER JOIN accounts ON posts.accountid = accounts.id left join comments on (posts.id = comments.postid) group by posts.id LIMIT  ` + limit + ` OFFSET ` + skip;
     connection.query(
         query,
         (error, results) => {
@@ -66,6 +67,7 @@ exports.login = (req, res) => {
 // admin edit blog post
 exports.edit = (req, res) => {
     if (req.session.loggedin) {
+       
         connection.query(
             'SELECT * FROM posts WHERE id = ?',
             [req.params.id],
@@ -75,17 +77,78 @@ exports.edit = (req, res) => {
         );
     }
 }
-
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+}
 // Update method for /edit page
 exports.update = (req, res) => {
     if (req.session.loggedin) {
-        connection.query(
-            'UPDATE posts SET title = ?, content = ? ,image=? WHERE id = ?',
-            [req.body.title, req.body.content,req.params.image, req.params.id],
-            (error, results) => {
-                res.redirect('/');
-            }
-        );
+        console.log("req in ", req)
+       
+            console.log("inside image ");
+            var upload = multer({
+                storage: imageMiddleware.image.storage(), 
+                allowedImage:imageMiddleware.image.allowedImage ,
+
+                }).single('image');
+                upload(req, res, function (err) {
+                    if (err instanceof multer.MulterError) {
+                       res.send(err);
+                    } else if (err) {
+                       res.send(err);
+                    }else{
+                       // store image in database
+                       var title=req.body.title;
+                       var content =  req.body.content;
+                       
+                       console.log("fileeee ",req.file);
+                    //    console.log(req.body);
+                    //    console.log(req.file);
+                        // var imageName = req.file.originalname
+                        var imageName = req.file ? req.file.filename : "";
+                        console.log("req id ",req.params.id)
+                        // const DATE_FORMATER = require( 'dateformat' );
+                        // var datetme = DATE_FORMATER( new Date(), "yyyy-mm-dd " );
+                        var inputValues = {
+                           image_name: imageName
+                        }
+                        if(imageName!=""){
+                        connection.query(
+                            'UPDATE posts SET title = ?, content = ? ,image=? WHERE id = ?',
+                            [title, content,'images/'+ imageName, req.params.id],
+                            (error, results) => {
+                                res.redirect('/');
+                            }
+                        );
+                        }
+                        else{
+                            connection.query(
+                                'UPDATE posts SET title = ?, content = ? WHERE id = ?',
+                                [title, content,req.params.id],
+                                (error, results) => {
+                                    res.redirect('/');
+                                }
+                            );
+                            }
+        
+                    
+                       
+                        
+                    }
+                    
+                 }); 
+        
+       
+    }
+    else{
+        res.redirect('/');
     }
 }
 
@@ -135,7 +198,7 @@ exports.new_post = (req, res) => {
                console.log(req.file);
                console.log(req.body);
                 // var imageName = req.file.originalname
-                var imageName = req.file ? req.file.originalname : "";
+                var imageName = req.file ? req.file.filename : "";
                 // const DATE_FORMATER = require( 'dateformat' );
                 // var datetme = DATE_FORMATER( new Date(), "yyyy-mm-dd " );
                 var inputValues = {
