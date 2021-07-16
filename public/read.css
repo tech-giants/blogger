@@ -45,7 +45,7 @@ body {
   text-align: center;
   justify-content: center;
   justify-items: center;
-  font-size: 2vw;
+  font-size: 2rem;
   
 
 }
@@ -55,23 +55,23 @@ body {
     }
     .icons{
       text-align: center;
-      font-size: 1vw;
+      font-size: 1rem;
     }
+
   .date1{
     
-      font-size: 0.7vw;
-      color: #3b5999;
-      /* margin-top: -20px; */
-      display: flex;
-      
-      /* margin-left: 263px; */
-      text-align: center;
+    font-size: 1rem;
+    color: #3b5999;
+    /* display: flex; */
+    /* margin-left: 458px; */
+    
+    text-align: right;
   }
   
   .img-fluid{
-    width: 65%; 
+     width: 65%; 
      height: 65%;
-     margin: 7% 0% 0% 27%;
+     /* margin: 7% 0% 0% 27%; */
     }
   
     .post1{
@@ -79,8 +79,20 @@ body {
       
       
     }
+    .icon_above_wapper{
+      width: 65%;
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 18px;
+      
+    }
+    .icon_pro{
+      display: flex;
+      justify-content: center;
+
+    }
     .post12{
-      height: 1.5vw;
+      height: 1.5rem;
      margin-top: 10px;
     /* margin-left: 1030px; */
     /* margin: -44px 36px 0px 1029px;  */
@@ -91,8 +103,8 @@ body {
     /* margin-left: 1030px; */
   }
   .post_liked{
-    height: 2.5vw;
-    display: none;
+    height: 23px;
+    margin-bottom: 7px;
     /* margin-left: 1030px; */
   }
   .commentbody{
@@ -108,7 +120,8 @@ body {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
-    font-size: 1.5vw;
+    font-weight: normal;
+    font-size: 1rem;
     margin-right: 18%;
     outline: none;
   }
@@ -116,10 +129,8 @@ body {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
-    
     outline: none;
     /* margin: -99% -41% 3% 2400%; */
-  
   }
 
   .container{
@@ -147,6 +158,7 @@ body {
 
 } */
 #mySidenav a {
+  z-index: 1000000;
   margin-top: 100px;
   position: fixed;
   right: -65px;
