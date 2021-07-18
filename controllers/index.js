@@ -180,7 +180,8 @@ exports.new_get = (req, res) => {
 
 // new blog (post)
 exports.new_post = (req, res) => {
-    // debugger;
+    
+    console.log("logg   ",req.session)
     var upload = multer({
         storage: imageMiddleware.image.storage(), 
         allowedImage:imageMiddleware.image.allowedImage 
@@ -207,9 +208,10 @@ exports.new_post = (req, res) => {
                
 
                 connection.query(
-                    'INSERT INTO posts(title, content, post_date,image,username) VALUES(?, ?, NOW(),?,?)',
-                    [title, content,'images/'+ imageName,req.session.username],
+                    'INSERT INTO posts(title, content, post_date,image,	accountid) VALUES(?, ?, NOW(),?,?)',
+                    [title, content,'images/'+ imageName,req.session.accountid],
                     (error, results) => {
+                        console.log("error in insertion ",error)
                         res.redirect('/');
                     }
                 );
@@ -229,8 +231,7 @@ exports.post = (req, res) => {
         (error, results) => {
             
             connection.query('select c.Commentid As commentid, c.comments as comments ,c.comment_date as comment_date,a.username as username FROM `comments` as c JOIN accounts as a ON c.accountid = a.id where c.postid = ?',[req.params.id],(error,results_comment) => {
-                console.log("comments ",error)
-                console.log("resultl from post ",results)
+              
                 res.render('read.ejs', {post: results[0],comments:results_comment, verified: req.session.loggedin,accountid_:req.session.accountid,dateformat__:dateFormat,comments_count:results_comment.length});
 
             });
