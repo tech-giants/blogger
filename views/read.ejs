@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="../read.css">
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../new.css">
+    <link rel="icon" href="Saldiri.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script type="text/javascript" src="https://js.pusher.com/3.2/pusher.min.js"></script>
@@ -27,13 +28,14 @@
   
   <div class="row">
     <div class="col-2"></div>
-    <div class="col-9"><p class="tittle"><strong><%= post.title %></strong></p></div>
+    <div class="col-8"><p class="tittle"><strong><%= post.title %></strong></p></div>
     
     
   </div>
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-5 icons">
+  <div class="row icon_pro">
+    
+     <div class="icon_above_wapper">
+    <div class="icons">
    <img src="../like.png" class="like"/>
       <span id="like_"><%= post.likes %></span>
      <img src="../chat-comment-oval-speech-bubble-with-text-lines.png" class="comments"/>
@@ -44,11 +46,12 @@
      <span>
        <%= post.views %>
      </span></div>
-    <div class="col-4"><small class="date1"><span>Written by: <%= post.username %> , &nbsp;</span> <%= dateformat__(post.post_date,"d/m/yyyy") %></small></div>
-     <div class="col-1"></div>
+    <div class=""><small class="date1"><span><%= post.username %> &nbsp;</span> <%= dateformat__(post.post_date,"d/m/yyyy") %></small></div>
   </div>
+  </div>
+
   <div class="row">
-    <div class="col-10 center-img">
+    <div class="col-12 center-img">
       <img src="/<%=post.image%>" class="img-fluid" alt="Responsive image">
       
     </div>
@@ -70,20 +73,25 @@
          <hr class="col-8" style="background-color: #3b5999;">
         <% if(verified) { %>
           <div class="row">
-            <div class="col-8"></div>
+            <div class="col-2"></div>
+            <div class="col-6">
+
+              <p class="" >Post Comment</p>
+            </div>
             
             <div class="col-4">
-              <img id="likeimg" src="../like.png"   class="post_like likes"  alt="like image">
-              <img id="likedimg" src="../likeb.png"   class="post_liked likes"  alt="liked image"> <span id="btnlike" class="likebutton" style="outline: none;" ></button> like </button></div>
+              <!-- <img id="likeimg" src="../like.png"   class="post_like likes"  alt="like image"> -->
+              <img id="likedimg" src="../likeb.png"   class="post_liked likes"  alt="liked image"> <span id="btnlike" class="likebutton" style="outline: none;" ></button> Like </button>
+              </div>
            
           </div>
-          <div class="row">
+          <!-- <div class="row">
            
             <div class="col-3">
             <p class="button1" >post comment</p>
           </div>
-          <div class="col8"></div>
-        </div>
+          <div class="col-8"></div>
+        </div> -->
           <hr class="col-8" style="background-color: #3b5999;">
               <div class = "col-8 container">
             
@@ -93,7 +101,7 @@
                 
             </div>
           <div class="row " >
-            <div class="col-11"></div>
+            <div class="col-10"></div>
             <div class=" col-1 sendbutton">   
              <button class="sndbutton"  style="outline: none;"  onclick="post_comment('<%- post.id %>','<%- accountid_ %>')"><img src="../send (1).png"  class="post12" alt=""></button>
      </div>
