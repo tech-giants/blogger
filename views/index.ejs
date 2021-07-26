@@ -49,7 +49,7 @@
        
 
         <div class="card " >
-          <% if(verified) { %>
+          <% if(verified && post.accountid==id) { %>
               <div class="col-12 editdellete">
                   <a   class="btn  deleteBtn"><img src="./delete.png" onclick="myFunction('<%= post.id %>','<%= Truncate(post.title,100)%>')" class="delete_img"/></a>
                   <a  href="/edit/<%= post.id %>" id="edit_btn<%= post.id %>" class="btn  editBtn"><img src="./edit.png" class="edit_img"/></a>
@@ -99,7 +99,7 @@
             <div class="">
 
               
-              <a  href="/post/<%= post.id %>" id="read_btn<%= post.id %>" class="btn  readBtn"><img src="../file.png" class="read_img"/></a>
+              <a  href="/post?id=<%= post.id %>" id="read_btn<%= post.id %>" class="btn  readBtn"><img src="../file.png" class="read_img"/></a>
 
 
            

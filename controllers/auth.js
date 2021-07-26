@@ -11,7 +11,7 @@ exports.login = (req, res) => {
         (error, results) => {
             if (results.length > 0) {
                 // console.log(results.id);
-                console.log(results[0].id);
+                
                 req.session.loggedin = true;
 				req.session.username = username;
                 req.session.accountid = results[0].id

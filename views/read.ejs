@@ -80,9 +80,17 @@
             </div>
             
             <div class="col-4">
-              <!-- <img id="likeimg" src="../like.png"   class="post_like likes"  alt="like image"> -->
-              <img id="likedimg" src="../likeb.png"   class="post_liked likes"  alt="liked image"> <span id="btnlike" class="likebutton" style="outline: none;" ></button> Like </button>
-              </div>
+              <% if(like){ %>
+
+              <img id="likeimg" src="../like.png"  style="display: none;"  class="post_like likes" onclick="likefunction('<%- post.id %>')"  alt="like image">
+              
+              <img id="likedimg" src="../likeb.png"  onclick="likefunction('<%- post.id %>')" class="post_liked likes"  alt="liked image"> <span id="btnlike" class="likebutton"  style="outline: none;" ></button> liked </button>
+                <% } else { %>
+                  <img id="likeimg" src="../like.png"  class="post_like likes" onclick="likefunction('<%- post.id %>')"  alt="like image">
+              
+                  <img id="likedimg" src="../likeb.png" style="display: none;"  class="post_liked likes"  onclick="likefunction('<%- post.id %>')"  alt="liked image"> <span id="btnlike" class="likebutton"  style="outline: none;" ></button> Like </button>
+                <% } %>
+                  </div>
            
           </div>
           <!-- <div class="row">

@@ -27,6 +27,6 @@ router.post('/new', indexController.new_post);
 router.post('/like', indexController.like);
 router.post('/comment', indexController.comment);
 router.post('/views', indexController.views);
-router.get('/post/:id', indexController.post);
+router.get('/post', indexController.post);
 
 module.exports = router

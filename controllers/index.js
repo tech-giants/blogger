@@ -9,6 +9,7 @@ const imageToBase64 = require('image-to-base64');
 var uuidV4 = require('uuid');
 // var popup = require('popups');
 var imageMiddleware= require('../middlewares/store-image');
+const { POINT_CONVERSION_HYBRID } = require('constants');
 // index page
 
 var cur_page=0;
@@ -28,7 +29,8 @@ exports.index = (req, res) => {
     connection.query(
         query,
         (error, results) => {
-            res.render('index.ejs', {posts: results, verified: req.session.loggedin, Truncate: truncate,dateformat__:dateFormat});
+           
+            res.render('index.ejs', {posts: results, verified: req.session.loggedin,id:req.session.accountid, Truncate: truncate,dateformat__:dateFormat});
         }
     );
 }
@@ -90,9 +92,9 @@ function makeid(length) {
 // Update method for /edit page
 exports.update = (req, res) => {
     if (req.session.loggedin) {
-        console.log("req in ", req)
+      
        
-            console.log("inside image ");
+           
             var upload = multer({
                 storage: imageMiddleware.image.storage(), 
                 allowedImage:imageMiddleware.image.allowedImage ,
@@ -108,12 +110,11 @@ exports.update = (req, res) => {
                        var title=req.body.title;
                        var content =  req.body.content;
                        
-                       console.log("fileeee ",req.file);
-                    //    console.log(req.body);
-                    //    console.log(req.file);
+                    
+                    
                         // var imageName = req.file.originalname
                         var imageName = req.file ? req.file.filename : "";
-                        console.log("req id ",req.params.id)
+                      
                         // const DATE_FORMATER = require( 'dateformat' );
                         // var datetme = DATE_FORMATER( new Date(), "yyyy-mm-dd " );
                         var inputValues = {
@@ -181,7 +182,7 @@ exports.new_get = (req, res) => {
 // new blog (post)
 exports.new_post = (req, res) => {
     
-    console.log("logg   ",req.session)
+   
     var upload = multer({
         storage: imageMiddleware.image.storage(), 
         allowedImage:imageMiddleware.image.allowedImage 
@@ -196,8 +197,7 @@ exports.new_post = (req, res) => {
                var title=req.body.title;
                var content =  req.body.content;
                
-               console.log(req.file);
-               console.log(req.body);
+              
                 // var imageName = req.file.originalname
                 var imageName = req.file ? req.file.filename : "";
                 // const DATE_FORMATER = require( 'dateformat' );
@@ -211,7 +211,7 @@ exports.new_post = (req, res) => {
                     'INSERT INTO posts(title, content, post_date,image,	accountid) VALUES(?, ?, NOW(),?,?)',
                     [title, content,'images/'+ imageName,req.session.accountid],
                     (error, results) => {
-                        console.log("error in insertion ",error)
+                       
                         res.redirect('/');
                     }
                 );
@@ -224,25 +224,76 @@ exports.new_post = (req, res) => {
 
 // viewing the post
 exports.post = (req, res) => {
-   console.log("iddd ",req.params.id)
+ 
+//    if(req.session.accountid){}
+var liked=false;
+if(req.session.loggedin){
+  
+ query2="select * from likes_views where accountid=? and postid=?"
+connection.query(
+ query2,
+ [ req.session.accountid,req.query.id],
+ (error, results) => {
+    
+     if(results.length>0){
+        liked=true;
+        connection.query(
+            'SELECT * FROM posts WHERE id = ?',
+            [req.query.id],
+            (error, results) => {
+                
+                connection.query('select c.Commentid As commentid, c.comments as comments ,c.comment_date as comment_date,a.username as username FROM `comments` as c JOIN accounts as a ON c.accountid = a.id where c.postid = ?',[req.params.id],(error,results_comment) => {
+                  
+                    res.render('read.ejs', {like:true,post: results[0],comments:results_comment, verified: req.session.loggedin,accountid_:req.session.accountid,dateformat__:dateFormat,comments_count:results_comment.length});
+    
+                });
+                
+            }
+        );
+     }
+     else{
+        connection.query(
+            'SELECT * FROM posts WHERE id = ?',
+            [req.query.id],
+            (error, results) => {
+                
+                connection.query('select c.Commentid As commentid, c.comments as comments ,c.comment_date as comment_date,a.username as username FROM `comments` as c JOIN accounts as a ON c.accountid = a.id where c.postid = ?',[req.params.id],(error,results_comment) => {
+                  
+                    res.render('read.ejs', {like:false,post: results[0],comments:results_comment, verified: req.session.loggedin,accountid_:req.session.accountid,dateformat__:dateFormat,comments_count:results_comment.length});
+    
+                });
+                
+            }
+        );
+     }
+ }
+ 
+);
+}
+else{
+
     connection.query(
         'SELECT * FROM posts WHERE id = ?',
-        [req.params.id],
+        [req.query.id],
         (error, results) => {
             
             connection.query('select c.Commentid As commentid, c.comments as comments ,c.comment_date as comment_date,a.username as username FROM `comments` as c JOIN accounts as a ON c.accountid = a.id where c.postid = ?',[req.params.id],(error,results_comment) => {
               
-                res.render('read.ejs', {post: results[0],comments:results_comment, verified: req.session.loggedin,accountid_:req.session.accountid,dateformat__:dateFormat,comments_count:results_comment.length});
+                res.render('read.ejs', {like:false,post: results[0],comments:results_comment, verified: req.session.loggedin,accountid_:req.session.accountid,dateformat__:dateFormat,comments_count:results_comment.length});
 
             });
             
         }
     );
 }
+}
 exports.like = (req, res) => {
     query='update posts set likes=likes+1 WHERE id = ?'
+    query3='insert into likes_views(postid,accountid) VALUES(?,?)'
     if(req.body.type_=='negative'){
         query='update posts set likes=likes-1 WHERE id = ?'
+        query3='DELETE FROM likes_views  WHERE postid=? and accountid=? '
+        
     }
     connection.query(
         query,
@@ -259,16 +310,26 @@ exports.like = (req, res) => {
         }
     )
     
+    connection.query(
+        query3,
+        [req.body.id, req.session.accountid],
+        (error, results) => {
+           
+        }
+        
+    )
+        
+    
+    
 
 }
 exports.comment = (req, res) => {
-    console.log("insertion of comment ",req.session.userid)
+  
     connection.query(
         'insert into comments(comments,postid,accountid) VALUES(?,?,?)',
         [req.body.comment_cur,req.body.id, req.session.accountid],
         (error, results) => {
-            console.log("error in comment i ",error)
-            console.log("result in comment i ",results)
+           
         }
         
     )

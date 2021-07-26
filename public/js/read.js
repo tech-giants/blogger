@@ -1,5 +1,5 @@
-$('.likes').on('click', function() {
-         
+function likefunction(id) {
+        
     type='add'
     cur_color =  $('#btnlike').text().trim();
     if(cur_color=='liked'){
@@ -9,7 +9,7 @@ $('.likes').on('click', function() {
 $.ajax({
 type: 'POST',
 url: '/like',
-data: { id: "<%- post.id %>" ,type_:type}
+data: { id:id ,type_:type}
 
 }).done(function(data) {
 
@@ -28,7 +28,7 @@ if(cur_color=='liked'){
    $('#likedimg').show();
   }
       });
-});
+};
 function post_comment(post,accountid){
 var comment = document.getElementById('comment_box').value;
 
@@ -41,7 +41,7 @@ data: { id: post,comment_cur:comment,user:accountid}
 
 
 }).done(function(data) {
-debugger;
+
 $('#comments_count').text(data.commentsupdated[0].commentscount);
 $('#comments__').text(data.commentsupdated[0].commentscount);
 
