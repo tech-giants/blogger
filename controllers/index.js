@@ -196,6 +196,7 @@ exports.new_post = (req, res) => {
                // store image in database
                var title=req.body.title;
                var content =  req.body.content;
+               console.log("contentttt ",content);
                
               
                 // var imageName = req.file.originalname
@@ -211,7 +212,7 @@ exports.new_post = (req, res) => {
                     'INSERT INTO posts(title, content, post_date,image,	accountid) VALUES(?, ?, NOW(),?,?)',
                     [title, content,'images/'+ imageName,req.session.accountid],
                     (error, results) => {
-                       
+                        console.log("error ",error);
                         res.redirect('/');
                     }
                 );

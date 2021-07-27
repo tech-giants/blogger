@@ -12,7 +12,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
     $("#contentarea").on('keyup', function() {
-        var max = 3000,
+        var max = 5000,
             len = this.value.length,
             lbl = $('#lblcount');
         if(len >= max) {

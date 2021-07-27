@@ -32,10 +32,10 @@ exports.signup = function(req, res){
    
     message = '';
     if(req.method == "POST"){
-        var sql="select * from accounts where username = ?"
-        connection.query(sql,[req.body.username],function(err,result){
+        var sql="select * from accounts where email = ? or username = ?"
+        connection.query(sql,[req.body.email,req.body.username],function(err,result){
             if(result.length>=1){
-                res.render('signup.ejs',{error:"Username already exists",verified:""});
+                res.render('signup.ejs',{error:"email already exists",verified:""});
             }
             else{
                 
